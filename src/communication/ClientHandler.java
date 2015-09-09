@@ -66,10 +66,10 @@ public class ClientHandler implements Runnable {
                                     if(PlayerHandler.containsPlayer(playerName)==null)
                                     {
                                         Player player =new Player(playerName);
-                                        PlayerHandler.addPlayer(player);
+                                        PlayerHandler.addNewPlayer(player);
                                         PlayerHandler.printPlayers();
                                         int PlayerId=player.getId();
-                                        int PlayerColorId=5;
+                                        int PlayerColorId=player.getColor().getColorID();
                                         outstream.writeUTF("OK ");
                                         outstream.writeInt(PlayerId);
                                         outstream.writeInt(PlayerColorId);

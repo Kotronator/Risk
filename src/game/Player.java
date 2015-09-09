@@ -1,14 +1,14 @@
 package game;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import Areas.Territory;
+import graphics.PlayerColor;
 
 public class Player {
 	
     private String name;
-    private Color color;
+    private PlayerColor color;
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
     private int id;
@@ -25,11 +25,11 @@ public class Player {
         this.name = name;
     }
 
-    public Color getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(PlayerColor color) {
         this.color = color;
     }
 

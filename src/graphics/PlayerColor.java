@@ -16,10 +16,24 @@ public class PlayerColor {
     
     Color color;
     Icon icon;
+    int playerID=-1;
+    private int colorID;
+    
+    public PlayerColor(){}
+    
+    public PlayerColor(int colorID,Color color, Icon icon)
+    {
+        this.colorID=colorID;
+        this.color=color;
+        this.icon=icon;
+    }
 
-    public PlayerColor(Color color, Icon icon) {
-        this.color = color;
-        this.icon = icon;
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
     }
      
 
@@ -37,6 +51,14 @@ public class PlayerColor {
 
     public void setIcon(Icon icon) {
         this.icon = icon;
+    }
+
+    public int getColorID() {
+        return colorID;
+    }
+
+    public void setColorID(int colorID) {
+        this.colorID = colorID;
     }
    
     

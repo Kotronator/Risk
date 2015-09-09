@@ -20,7 +20,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
     JLabel[] col={new JLabel("hi")};
     Icon notConnectedIcon = new ImageIcon(getClass().getResource("/resources/icons/icon5.png"));
     Icon blueIcon = new ImageIcon(getClass().getResource("/resources/icons/blue.gif"));
-    Icon redIcon = new ImageIcon(getClass().getResource("/resources/icons/redgif.gif"));
+    Icon redIcon = new ImageIcon(getClass().getResource("/resources/icons/red.gif"));
     Icon greenIcon = new ImageIcon(getClass().getResource("/resources/icons/green.gif"));
     Icon[] icons = new Icon[4];
     private DefaultComboBoxModel model;
