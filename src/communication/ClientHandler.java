@@ -48,19 +48,45 @@ public class ClientHandler implements Runnable {
 			//int i =br.readInt();
 			while((str= br.readUTF())!=null)
 			{
-				if(PlayerHandler.containsPlayer(str)==null)
+//				if(PlayerHandler.containsPlayer(str)==null)
+//                                {
+//                                    PlayerHandler.addPlayer(new Player(str));
+//					outstream.writeUTF("OK");
+//                                }
+//				else
+//					outstream.writeUTF("EXISTS");
+//				outstream.flush();
+//				Debug.println("message");
+//				Debug.println(str);
+                                if(str.startsWith("ADDP"))
                                 {
-                                    PlayerHandler.addPlayer(new Player(str));
-					outstream.writeUTF("OK");
+                                    String[] tokens=str.split(" ");
+                                    String playerName =tokens[1];
+                                    Debug.println("Server recived:ADDP "+playerName);
+                                    if(PlayerHandler.containsPlayer(playerName)==null)
+                                    {
+                                        Player player =new Player(playerName);
+                                        PlayerHandler.addPlayer(player);
+                                        PlayerHandler.printPlayers();
+                                        int PlayerId=player.getId();
+                                        int PlayerColorId=5;
+                                        outstream.writeUTF("OK ");
+                                        outstream.writeInt(PlayerId);
+                                        outstream.writeInt(PlayerColorId);
+                                        Debug.println("Server sends:OK "+PlayerId+" "+PlayerColorId+" For Player:"+playerName);
+                                        
+                                    }else
+                                    {
+                                         outstream.writeUTF("EXISTS");
+                                         Debug.println("Server sends:EXISTS"+" For Player:"+playerName);
+                                    }
+                                    outstream.flush();
                                 }
-				else
-					outstream.writeUTF("EXISTS");
-				outstream.flush();
-				Debug.println("message");
-				Debug.println(str);
+                            
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+                        //remove player
 			e.printStackTrace();
 		}
 		

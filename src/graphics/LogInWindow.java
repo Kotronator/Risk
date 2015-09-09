@@ -36,6 +36,7 @@ public class LogInWindow extends javax.swing.JFrame {
     private final String greenStatusIconFileName= "icons/greenStatusIcon.gif",
             redStatusIconFileName= "icons/redStatusIcon.gif"
             ;
+    private String defaultPort="81";
     
    
 
@@ -189,7 +190,7 @@ public class LogInWindow extends javax.swing.JFrame {
             }
         });
 
-        portTextField.setText("80");
+        portTextField.setText(defaultPort);
 
         jLabel4.setText("Port");
 
@@ -308,14 +309,15 @@ public class LogInWindow extends javax.swing.JFrame {
         		t.start();
 				System.out.println("join");
 				setConected(1);
-				PlayerHandler.addPlayer(new Player(getNickname()));
+				//PlayerHandler.addPlayer(new Player(getNickname()));
 			}
         	else if(res==0)
         	{
         		setConected(0);
         	}else
         		setConected(-1);
-        }
+        }				//PlayerHandler.addPlayer(new Player(getNickname()));
+
     }//GEN-LAST:event_connectButtonActionPerformed
 
     private void hostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hostButtonActionPerformed
@@ -330,8 +332,8 @@ public class LogInWindow extends javax.swing.JFrame {
         		System.out.println("host");
         		setConected(1);
                         nameTextField.setEditable(false);
-        		PlayerHandler.addPlayer(new Player(getNickname()));
-                       
+        		//PlayerHandler.addPlayer(new Player(getNickname()));
+                       connectButtonActionPerformed(null);
         		
         	}
         	else

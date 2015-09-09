@@ -23,12 +23,12 @@ public class Client implements Runnable {
 				socket = new Socket(address, port);
 				dis = new DataInputStream(socket.getInputStream());
 				dos = new DataOutputStream(socket.getOutputStream());
-				dos.writeUTF(username);
+				dos.writeUTF("ADDP "+username);
 				dos.flush();
 				String answer =dis.readUTF();
-				if(answer.equals("OK"))
+				if(answer.startsWith("OK"))
 					return 1;
-				else if(answer.equals("EXISTS"))
+				else if(answer.startsWith("EXISTS"))
 					return 0;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

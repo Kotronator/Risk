@@ -7,20 +7,35 @@ public class PlayerHandler {
 	public static ArrayList<Player> playerlist= new ArrayList<Player>();
 	
 	
-	public static void addPlayer(Player p)
+	public synchronized static void  addPlayer(Player p)
 	{
+            synchronized(playerlist){
 		playerlist.add(p);
-	}
+                p.setId(playerlist.size()-1);
 	
-	public static Player containsPlayer(String str)
+            }
+        }
+	public synchronized static Player containsPlayer(String str)
 	{
+            synchronized(playerlist){
 		for (Player player : playerlist) {
-			if(player.name.equals(str))
+			if(player.getName().equals(str))
 				return player;
 		}
-		
+            }
 		return null;
 		
 	}
-
+        
+        
+        public synchronized static void printPlayers()
+        {
+            synchronized(playerlist){
+            System.out.println("#printing players#");
+            for (Player player : playerlist) {
+                System.out.println(player.getName());
+            }
+            System.out.println("#end printing players#");
+            }
+        }
 }
