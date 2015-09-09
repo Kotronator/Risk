@@ -1,10 +1,12 @@
 package game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class PlayerHandler {
 	
 	public static ArrayList<Player> playerlist= new ArrayList<Player>();
+        public static ArrayList<Color> playerColorlist= new ArrayList<Color>();
 	
 	
 	public synchronized static void  addPlayer(Player p)
