@@ -5,6 +5,9 @@
  */
 package graphics.lobby;
 
+import communication.Client;
+import game.Player;
+import game.PlayerHandler;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -14,18 +17,51 @@ import javax.swing.ImageIcon;
  */
 public class LobbyWindow extends javax.swing.JFrame {
 
-    
-    
-    
-    
+
+    public static boolean enabled=false;
+
+
     /**
      * Creates new form LobbyWindow
      */
     public LobbyWindow() {
-        
+
         initComponents();
+        playerPanels= new LobbyPlayerPanel[6];
+        playerPanels[0]=lobbyPlayerPanel1;
+        playerPanels[1]=lobbyPlayerPanel2;
+        playerPanels[2]=lobbyPlayerPanel3;
+        playerPanels[3]=lobbyPlayerPanel4;
+        playerPanels[4]=lobbyPlayerPanel5;
+        playerPanels[5]=lobbyPlayerPanel6;
+        
+        loadPlayersNames();
     }
 
+    public static void loadPlayersNames()
+    {
+        enabled=true;
+        for(Player p:Client.playerHandler.playerlist)
+        {
+      
+                int id=p.getId();
+                p.getName();
+                playerPanels[id].equals(null);
+                playerPanels[id].setName(p.getName());
+                playerPanels[id].setChoosed(p.getColor().getColorID());
+                if(Client.id==id)
+                {
+                    playerPanels[id].enableChoosing(true);
+                }
+                if(playerPanels[id]==lobbyPlayerPanel1)
+                {
+                    debug.Debug.println("isa");
+                }
+            
+        }
+                
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -266,7 +302,7 @@ public class LobbyWindow extends javax.swing.JFrame {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 //         */
 //        try {
 //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -311,11 +347,13 @@ public class LobbyWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel1;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel2;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel3;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel4;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel5;
-    private graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel6;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel1;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel2;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel3;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel4;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel5;
+    private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel6;
     // End of variables declaration//GEN-END:variables
+    private static graphics.lobby.LobbyPlayerPanel playerPanels[];//= {lobbyPlayerPanel1,lobbyPlayerPanel2,lobbyPlayerPanel3,lobbyPlayerPanel4,lobbyPlayerPanel5,lobbyPlayerPanel6};
+
 }

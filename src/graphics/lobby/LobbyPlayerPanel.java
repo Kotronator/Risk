@@ -5,7 +5,7 @@
  */
 package graphics.lobby;
 
-import javafx.scene.paint.Color;
+import game.PlayerHandler;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,11 +19,9 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
 
     JLabel[] col={new JLabel("hi")};
     Icon notConnectedIcon = new ImageIcon(getClass().getResource("/resources/icons/icon5.png"));
-    Icon blueIcon = new ImageIcon(getClass().getResource("/resources/icons/blue.gif"));
-    Icon redIcon = new ImageIcon(getClass().getResource("/resources/icons/red.gif"));
-    Icon greenIcon = new ImageIcon(getClass().getResource("/resources/icons/green.gif"));
+
     Icon[] icons = new Icon[4];
-    private DefaultComboBoxModel model;
+    private  DefaultComboBoxModel model;
     
     //http://www.codejava.net/java-se/swing/create-custom-gui-for-jcombobox
     /**
@@ -31,25 +29,46 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
      */
     public LobbyPlayerPanel() {
     
-        model = new DefaultComboBoxModel<Icon>();
-        icons[0]= notConnectedIcon;
-        icons[1]= blueIcon;
-        icons[2]= redIcon;
-        icons[3]= greenIcon;
+        model = new DefaultComboBoxModel<>();
+        //icons[0]= notConnectedIcon;
+//        icons[1]= blueIcon;
+//        icons[2]= redIcon;
+//        icons[3]= greenIcon
         
-        for (int i = 0; i < icons.length; i++) {
-                model.addElement(icons[i]);
-                
+        for(int i=0; i<PlayerHandler.availableColors.length; i++)
+        {
+            model.addElement(PlayerHandler.availableColors[i].getIcon());
         }
+        model.addElement(notConnectedIcon);
+//        for (Icon icon : icons) {
+//            model.addElement(icon);
+//        }
         
         initComponents();
-        
+        model.setSelectedItem(model.getElementAt(model.getSize()-1));
         jComboBox1.setEnabled(false);
         
         
        
     }
-
+    
+    public void setName(String name)
+    {
+        NameLabel.setText(name);
+    }
+    
+    public void enableChoosing(boolean enabled)
+    {
+       this.jComboBox1.setEnabled(enabled);
+    }
+    
+    public void setChoosed(int index)
+    {
+         model.setSelectedItem(model.getElementAt(index));
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +80,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        jLabel1 = new javax.swing.JLabel();
+        NameLabel = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
@@ -71,7 +90,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jLabel1.setText("Not Connected");
+        NameLabel.setText("Not Connected");
 
         jComboBox1.setEditable(true);
         jComboBox1.setModel(model
@@ -90,7 +109,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(NameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -100,7 +119,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -112,8 +131,8 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel NameLabel;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

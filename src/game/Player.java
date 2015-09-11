@@ -6,6 +6,8 @@ import Areas.Territory;
 import graphics.PlayerColor;
 
 public class Player {
+
+   
 	
     private String name;
     private PlayerColor color;
@@ -13,6 +15,12 @@ public class Player {
     private ArrayList<Card> cards;
     private int id;
 
+     public Player(String name, int id, PlayerColor color) {
+        this.name = name;
+        this.color = color;
+        this.id = id;
+    }
+    
     public Player(String nickname) {
             this.name=nickname;
     }

@@ -170,16 +170,34 @@
           </SubComponents>
         </Container>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel2">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel3">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel4">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel5">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
         <Component class="graphics.lobby.LobbyPlayerPanel" name="lobbyPlayerPanel6">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

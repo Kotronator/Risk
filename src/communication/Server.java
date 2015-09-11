@@ -8,17 +8,23 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import debug.Debug;
+import game.Player;
+import game.PlayerHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Server implements Runnable {
 	
 	public static ServerSocket socket;
-	static ClientHandler ch;
-	ArrayList<Socket> sockets;
+	//static ClientHandler ch;
+        public static PlayerHandler playerHandler= new PlayerHandler();
+	static ArrayList<Socket> sockets;
+        static ArrayList<ClientHandler> clientHaldlers;
 	
 	public Server()
 	{
 		sockets = new ArrayList<Socket>();
-		ch = new ClientHandler();
+		clientHaldlers = new ArrayList<ClientHandler>();
 	}
 	
 	static public boolean connect(int port)
@@ -50,6 +56,7 @@ public class Server implements Runnable {
 				Socket clientSocket =socket.accept();
 				sockets.add(clientSocket);
 				ClientHandler cl =new ClientHandler(clientSocket);
+                                clientHaldlers.add(cl);
 				Thread t = new Thread(cl);
 				t.start();
 				
@@ -60,5 +67,23 @@ public class Server implements Runnable {
 		}
 		
 	}
+        
+        public static void informOtherPlayersForNewPlayer(Player p, ClientHandler cl)
+        {
+            try {
+                for (ClientHandler clhnd :clientHaldlers) {
+                   clhnd.outstream.writeUTF("ADD_PLAYER");
+                   clhnd.outstream.writeUTF(p.getName());
+                   clhnd.outstream.writeInt(p.getId());
+                   clhnd.outstream.writeInt(p.getColor().getColorID());
+                   clhnd.outstream.flush();
+                   
+
+
+                }
+             } catch (IOException ex) {
+                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+        }
 
 }
