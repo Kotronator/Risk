@@ -18,6 +18,7 @@ public class Player {
      public Player(String name, int id, PlayerColor color) {
         this.name = name;
         this.color = color;
+        this.color.setPlayerID(id);
         this.id = id;
     }
     
@@ -38,7 +39,12 @@ public class Player {
     }
 
     public void setColor(PlayerColor color) {
+        if(this.color!=null)
+        {
+            this.color.setPlayerID(-1);
+        }
         this.color = color;
+        this.color.setPlayerID(id);
     }
 
     public ArrayList<Territory> getTerritories() {

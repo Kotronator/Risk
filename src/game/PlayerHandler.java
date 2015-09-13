@@ -12,11 +12,15 @@ public class PlayerHandler {
     static Icon blueIcon = new ImageIcon(PlayerHandler.class.getResource("/resources/icons/blue.gif"));
     static Icon redIcon = new ImageIcon(PlayerHandler.class.getResource("/resources/icons/red.gif"));
     static Icon greenIcon = new ImageIcon(PlayerHandler.class.getResource("/resources/icons/green.gif"));
+    static Icon yellowIcon = new ImageIcon(PlayerHandler.class.getResource("/resources/icons/yellow.gif"));
     
 	public  ArrayList<Player> playerlist= new ArrayList<Player>();
         public static ArrayList<PlayerColor> playerColorlist= new ArrayList<PlayerColor>();
-            public static PlayerColor[] availableColors ={new PlayerColor(0,Color.BLUE,blueIcon)
-                ,new PlayerColor(1,Color.RED,redIcon),new PlayerColor(2,Color.GREEN,greenIcon)};
+            public static PlayerColor[] availableColors =
+            {
+                new PlayerColor(0,Color.BLUE,blueIcon), new PlayerColor(1,Color.RED,redIcon),
+                new PlayerColor(2,Color.GREEN,greenIcon), new PlayerColor(3, Color.YELLOW, yellowIcon)
+            };
 	
 	public synchronized  void  addNewPlayer(Player p)
 	{

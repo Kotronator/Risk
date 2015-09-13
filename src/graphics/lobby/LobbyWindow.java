@@ -34,7 +34,7 @@ public class LobbyWindow extends javax.swing.JFrame {
         playerPanels[3]=lobbyPlayerPanel4;
         playerPanels[4]=lobbyPlayerPanel5;
         playerPanels[5]=lobbyPlayerPanel6;
-        
+        playerPanels[Client.id].model.removeElementAt(playerPanels[Client.id].model.getSize()-1);
         loadPlayersNames();
     }
 
@@ -57,6 +57,13 @@ public class LobbyWindow extends javax.swing.JFrame {
                 {
                     debug.Debug.println("isa");
                 }
+                playerPanels[Client.id].model.removeAllElements();
+            for (int i =0; i<PlayerHandler.availableColors.length;  i++) {
+                if(PlayerHandler.availableColors[i].getPlayerID()==Client.id||PlayerHandler.availableColors[i].getPlayerID()==-1)
+                {
+                    playerPanels[Client.id].model.addElement(PlayerHandler.availableColors[i]);// edw
+                }
+            }
             
         }
                 

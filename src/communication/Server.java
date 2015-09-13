@@ -72,12 +72,14 @@ public class Server implements Runnable {
         {
             try {
                 for (ClientHandler clhnd :clientHaldlers) {
-                   clhnd.outstream.writeUTF("ADD_PLAYER");
-                   clhnd.outstream.writeUTF(p.getName());
-                   clhnd.outstream.writeInt(p.getId());
-                   clhnd.outstream.writeInt(p.getColor().getColorID());
-                   clhnd.outstream.flush();
-                   
+                    //if(clhnd!=cl)
+                    {
+                        clhnd.outstream.writeUTF("ADD_PLAYER");
+                        clhnd.outstream.writeUTF(p.getName());
+                        clhnd.outstream.writeInt(p.getId());
+                        clhnd.outstream.writeInt(p.getColor().getColorID());
+                        clhnd.outstream.flush();
+                    }
 
 
                 }

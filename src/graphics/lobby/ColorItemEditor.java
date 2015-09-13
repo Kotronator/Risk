@@ -5,6 +5,7 @@
  */
 package graphics.lobby;
 
+import graphics.PlayerColor;
 import java.awt.Component;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -18,7 +19,7 @@ import javax.swing.plaf.basic.BasicComboBoxEditor;
 public class ColorItemEditor  extends BasicComboBoxEditor {
     private JPanel panel = new JPanel();
     private JLabel labelItem = new JLabel();
-    private Icon selectedValue;
+    private PlayerColor selectedValue;
 
     public ColorItemEditor() {
          panel.add(labelItem);
@@ -37,9 +38,9 @@ public class ColorItemEditor  extends BasicComboBoxEditor {
             return;
         }
        
-        selectedValue = (Icon) item;
+        selectedValue = (PlayerColor) item;
         //labelItem.setText(selectedValue);
-        labelItem.setIcon((Icon)item);      
+        labelItem.setIcon(((PlayerColor)item).getIcon());      
     }  
     
 }

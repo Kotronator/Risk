@@ -5,6 +5,7 @@
  */
 package graphics.lobby;
 
+import graphics.PlayerColor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -43,7 +44,7 @@ public class ColorItemRenderer extends JPanel implements ListCellRenderer {
             int index, boolean isSelected, boolean cellHasFocus) {
        
         //labelItem.setIcon(((JLabel)value).getIcon());
-        labelItem.setIcon((Icon)value);
+        labelItem.setIcon(((PlayerColor)value).getIcon());
         labelItem.setText("");
         if (isSelected) {
             setEnabled(false);

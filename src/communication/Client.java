@@ -19,6 +19,7 @@ public class Client implements Runnable {
 	private static DataInputStream dis;
 	private static DataOutputStream dos;
         public static int id;
+        public static Player player;
 	
 	public Client()
 	{
@@ -39,6 +40,7 @@ public class Client implements Runnable {
                                     int playerID = Client.id = dis.readInt();
                                     int playerColorID = dis.readInt();
                                     Player p =new Player(username,playerID,PlayerHandler.availableColors[playerColorID]);
+                                    Client.player=p;
                                     Client.playerHandler.addPlayer(p);
                                     answer=dis.readUTF();
                                     while(!answer.equals("END_OLD_PLAYERS"))

@@ -5,7 +5,10 @@
  */
 package graphics.lobby;
 
+import communication.Client;
 import game.PlayerHandler;
+import graphics.PlayerColor;
+import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -18,10 +21,10 @@ import javax.swing.JLabel;
 public class LobbyPlayerPanel extends javax.swing.JPanel {
 
     JLabel[] col={new JLabel("hi")};
-    Icon notConnectedIcon = new ImageIcon(getClass().getResource("/resources/icons/icon5.png"));
-
+    Icon notConnectedIcona = new ImageIcon(getClass().getResource("/resources/icons/icon5.png"));
+    PlayerColor notConnectedIcon = new PlayerColor(-1, Color.WHITE, notConnectedIcona);
     Icon[] icons = new Icon[4];
-    private  DefaultComboBoxModel model;
+    protected  DefaultComboBoxModel model;
     
     //http://www.codejava.net/java-se/swing/create-custom-gui-for-jcombobox
     /**
@@ -37,7 +40,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         
         for(int i=0; i<PlayerHandler.availableColors.length; i++)
         {
-            model.addElement(PlayerHandler.availableColors[i].getIcon());
+            model.addElement(PlayerHandler.availableColors[i]);//edw
         }
         model.addElement(notConnectedIcon);
 //        for (Icon icon : icons) {
@@ -97,9 +100,24 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         );
         jComboBox1.setEditor(new ColorItemEditor());
         jComboBox1.setRenderer(new ColorItemRenderer());
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+        jComboBox1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jComboBox1PropertyChange(evt);
             }
         });
 
@@ -126,8 +144,42 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+//        if(((PlayerColor)this.jComboBox1.getSelectedItem())==null)
+//        {
+//            debug.Debug.println("nullllllll");
+//        }
+        debug.Debug.println("Heloo jim");
+        if(jComboBox1.getSelectedItem()!=null&&this.isEnabled())
+        {
+             debug.Debug.println("boxevent");
+            if(((PlayerColor)this.jComboBox1.getSelectedItem()).getPlayerID()!=Client.id)
+            {
+                debug.Debug.println("allazw se"+ ((PlayerColor)this.jComboBox1.getSelectedItem()).getColorID());
+               // Client.player.setColor((PlayerColor)jComboBox1.getSelectedItem());
+                //Client.informPlayerColorChange();
+            }
+//            else
+//                debug.Debug.println("Selected"+ ((PlayerColor)this.jComboBox1.getSelectedItem()).getColorID());
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+        debug.Debug.println("boxclicked#######");
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        
+        //evt.getStateChange()
+        if(evt.getStateChange()==java.awt.event.ItemEvent.SELECTED)
+            debug.Debug.println("_-_-!boxitemstateChanged!-_-");
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox1PropertyChange
+        // TODO add your handling code here:
+        debug.Debug.println("boxpropertychanged!!!!!!!!!!!!!");
+    }//GEN-LAST:event_jComboBox1PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
