@@ -98,6 +98,17 @@ public class ClientHandler implements Runnable {
                                     }
                                     outstream.flush();
                                 }
+                                else if(str.startsWith("INFORM_ABOUT_PL_COL_CHA"))
+                                {
+                                    int playerID = br.readInt();
+                                    int newColorID = br.readInt();
+                                    int oldColorID = br.readInt();
+                                    Server.playerHandler.playerlist.get(playerID).setColor(Server.playerHandler.availableColors[newColorID]);
+                                    Server.informClientsAboutAvailableColor(playerID,newColorID,oldColorID ,this);
+                                    //outstream.writeUTF("OK");
+                                    //outstream.flush();
+                                }
+                                
                             
 			}
 		} catch (IOException e) {

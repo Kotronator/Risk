@@ -41,6 +41,15 @@ public class PlayerHandler {
             }
         }
         
+        public Player getPlayerWithID(int id)
+        {
+            for (Player player : playerlist) {
+                if(player.getId()==id)
+                    return player;
+            }
+            return null;
+        }
+        
         public  void addPlayer(Player player)
         {
             //playerlist.set(i, player)

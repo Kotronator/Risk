@@ -3,6 +3,7 @@ package communication;
 import debug.Debug;
 import game.Player;
 import game.PlayerHandler;
+import graphics.PlayerColor;
 import graphics.lobby.LobbyWindow;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -39,7 +40,7 @@ public class Client implements Runnable {
                                 {
                                     int playerID = Client.id = dis.readInt();
                                     int playerColorID = dis.readInt();
-                                    Player p =new Player(username,playerID,PlayerHandler.availableColors[playerColorID]);
+                                    Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
                                     Client.player=p;
                                     Client.playerHandler.addPlayer(p);
                                     answer=dis.readUTF();
@@ -50,7 +51,7 @@ public class Client implements Runnable {
                                         playerID = dis.readInt();
                                         playerColorID = dis.readInt();
                                         //debug.Debug.println("hello4");
-                                        Client.playerHandler.addPlayer(new Player(playerName,playerID,PlayerHandler.availableColors[playerColorID]));
+                                        Client.playerHandler.addPlayer(new Player(playerName,playerID,Client.playerHandler.availableColors[playerColorID]));
                                         answer=dis.readUTF();
                                     }
                                     
@@ -79,11 +80,21 @@ public class Client implements Runnable {
                         String playerName=dis.readUTF();
                         int playerID = dis.readInt();
                         int playerColorID = dis.readInt();
-                        Player p =new Player(playerName,playerID,PlayerHandler.availableColors[playerColorID]);
+                        Player p =new Player(playerName,playerID,Client.playerHandler.availableColors[playerColorID]);
                         Client.playerHandler.addPlayer(p);
                         if(LobbyWindow.enabled)
                             //LobbyWindow.loadPlayer(p);
                             LobbyWindow.loadPlayersNames();
+                    }
+                    else if(str.startsWith("MAKE_COLOR_AVAILABLE"))
+                    {
+                        int playerID = dis.readInt();
+                        int newColorID = dis.readInt();
+                        int oldColorID = dis.readInt();
+                        //Client.playerHandler.availableColors[oldColorID].setPlayerID(-1);
+                        Client.playerHandler.getPlayerWithID(playerID).setColor(Client.playerHandler.availableColors[newColorID]);
+                        LobbyWindow.loadPlayersNames();
+                       
                     }
                     
                 }
@@ -98,10 +109,22 @@ public class Client implements Runnable {
            
 	}
         
-        public static void informAboutPlayerColorChange()
+        public static void informAboutPlayerColorChange(PlayerColor color)
         {
             try {
                 dos.writeUTF("INFORM_ABOUT_PL_COL_CHA");
+                dos.writeInt(Client.player.getId());
+                dos.writeInt(color.getColorID());
+                dos.writeInt(Client.player.getColor().getColorID());
+                debug.Debug.println("perimenw 1");
+                //String ans = dis.readUTF();
+//                debug.Debug.println(ans);
+//                if(ans.equals("OK"))
+//                {
+//                    Client.player.setColor(color);
+//                }
+                //debug.Debug.println("perimenw 2");
+                
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }

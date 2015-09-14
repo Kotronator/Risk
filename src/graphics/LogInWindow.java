@@ -17,6 +17,7 @@ import debug.Debug;
 import game.Player;
 import game.PlayerHandler;
 import graphics.lobby.LobbyWindow;
+import java.util.Random;
 
 
 /**
@@ -76,7 +77,8 @@ public class LogInWindow extends javax.swing.JFrame {
         if(Debug.DEBUG)
         {
         	nameTextFieldIntialized=hostAddressTextFieldIntialized=true;
-        	nameTextField.setText("J");
+                Random r = new Random(System.currentTimeMillis());
+        	nameTextField.setText("J"+r.nextInt(20));
         	hostAddressTextField.setText("localhost");
         	
         	
@@ -250,7 +252,7 @@ public class LogInWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(statusLabel)))
-                .addGap(60, 60, 60))
+                .addGap(65, 65, 65))
             .addComponent(statusTextField)
         );
         layout.setVerticalGroup(

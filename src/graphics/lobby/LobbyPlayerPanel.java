@@ -143,6 +143,9 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
                 && ((PlayerColor)evt.getItem()).getColorID()!=Client.player.getColor().getColorID())
         {
             debug.Debug.println("_-_-!boxitemstateChanged!-_---------ALLAKSE--------");
+            Client.player.setColor(((PlayerColor)evt.getItem()));
+            Client.informAboutPlayerColorChange(((PlayerColor)evt.getItem()));
+            
 //            PlayerColor pc =(PlayerColor)evt.getItem();
 //             debug.Debug.println("item"+ pc.getColorID());
 //             debug.Debug.println("Clienr"+ Client.player.getColor().getColorID());

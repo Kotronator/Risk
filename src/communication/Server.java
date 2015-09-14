@@ -20,6 +20,8 @@ public class Server implements Runnable {
         public static PlayerHandler playerHandler= new PlayerHandler();
 	static ArrayList<Socket> sockets;
         static ArrayList<ClientHandler> clientHaldlers;
+
+    
 	
 	public Server()
 	{
@@ -72,7 +74,7 @@ public class Server implements Runnable {
         {
             try {
                 for (ClientHandler clhnd :clientHaldlers) {
-                    //if(clhnd!=cl)
+                    if(clhnd!=cl)
                     {
                         clhnd.outstream.writeUTF("ADD_PLAYER");
                         clhnd.outstream.writeUTF(p.getName());
@@ -87,5 +89,24 @@ public class Server implements Runnable {
                         Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                     }
         }
+        
+        static void informClientsAboutAvailableColor(int playerID, int newColorID, int oldColorID, ClientHandler cl) {
+       try {
+                for (ClientHandler clhnd :clientHaldlers) {
+                    if(clhnd!=cl)
+                    {
+                        clhnd.outstream.writeUTF("MAKE_COLOR_AVAILABLE");
+                        clhnd.outstream.writeInt(playerID);
+                        clhnd.outstream.writeInt(newColorID);
+                        clhnd.outstream.writeInt(oldColorID);
+                        clhnd.outstream.flush();
+                    }
+                
+
+                }
+             } catch (IOException ex) {
+                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+    }
 
 }
