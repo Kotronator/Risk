@@ -97,5 +97,14 @@ public class Client implements Runnable {
             }
            
 	}
+        
+        public static void informAboutPlayerColorChange()
+        {
+            try {
+                dos.writeUTF("INFORM_ABOUT_PL_COL_CHA");
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
 }
