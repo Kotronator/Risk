@@ -7,6 +7,7 @@ package graphics.lobby;
 
 import graphics.PlayerColor;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +23,17 @@ public class ColorItemEditor  extends BasicComboBoxEditor {
     private PlayerColor selectedValue;
 
     public ColorItemEditor() {
+//          labelItem.addMouseListener(new java.awt.event.MouseAdapter() {
+//
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                debug.Debug.println("clikara thn lista !!!!++++++++++=====");
+//            }
+//            
+//        });
          panel.add(labelItem);
+         
+         
     }
     
     public Component getEditorComponent() {

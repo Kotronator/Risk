@@ -35,12 +35,15 @@ public class LobbyWindow extends javax.swing.JFrame {
         playerPanels[4]=lobbyPlayerPanel5;
         playerPanels[5]=lobbyPlayerPanel6;
         playerPanels[Client.id].model.removeElementAt(playerPanels[Client.id].model.getSize()-1);
+        enabled=true;
+        //loadPlayer(Client.player);
         loadPlayersNames();
+        
     }
 
     public static void loadPlayersNames()
     {
-        enabled=true;
+        //enabled=true;
         for(Player p:Client.playerHandler.playerlist)
         {
       
@@ -48,7 +51,7 @@ public class LobbyWindow extends javax.swing.JFrame {
                 p.getName();
                 playerPanels[id].equals(null);
                 playerPanels[id].setName(p.getName());
-                playerPanels[id].setChoosed(p.getColor().getColorID());
+                
                 if(Client.id==id)
                 {
                     playerPanels[id].enableChoosing(true);
@@ -64,10 +67,39 @@ public class LobbyWindow extends javax.swing.JFrame {
                     playerPanels[Client.id].model.addElement(PlayerHandler.availableColors[i]);// edw
                 }
             }
+            playerPanels[id].setChoosed(p.getColor());
             
         }
                 
     }
+//     public static void loadPlayer(Player player)
+//    {
+//        
+//                int id=player.getId();
+//                //p.getName();
+//                //playerPanels[id].equals(null);
+//                playerPanels[id].setName(player.getName());
+//                
+////                if(playerPanels[id]==lobbyPlayerPanel1)
+////                {
+////                    debug.Debug.println("isa");
+////                }
+//            playerPanels[player.getId()].model.removeAllElements();
+//            for (int i =0; i<PlayerHandler.availableColors.length;  i++) {
+//                if(PlayerHandler.availableColors[i].getPlayerID()==Client.id||PlayerHandler.availableColors[i].getPlayerID()==-1)
+//                {
+//                    playerPanels[Client.id].model.addElement(PlayerHandler.availableColors[i]);// edw
+//                }
+//            }
+//            playerPanels[id].setChoosed(player.getColor().getColorID());
+//                if(Client.id==id)
+//                {
+//                    playerPanels[id].enableChoosing(true);
+//                }
+////            
+////        }
+////                
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -361,6 +393,6 @@ public class LobbyWindow extends javax.swing.JFrame {
     private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel5;
     private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel6;
     // End of variables declaration//GEN-END:variables
-    private static graphics.lobby.LobbyPlayerPanel playerPanels[];//= {lobbyPlayerPanel1,lobbyPlayerPanel2,lobbyPlayerPanel3,lobbyPlayerPanel4,lobbyPlayerPanel5,lobbyPlayerPanel6};
+    protected static graphics.lobby.LobbyPlayerPanel playerPanels[];//= {lobbyPlayerPanel1,lobbyPlayerPanel2,lobbyPlayerPanel3,lobbyPlayerPanel4,lobbyPlayerPanel5,lobbyPlayerPanel6};
 
 }

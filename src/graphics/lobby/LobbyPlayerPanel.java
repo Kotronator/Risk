@@ -9,6 +9,7 @@ import communication.Client;
 import game.PlayerHandler;
 import graphics.PlayerColor;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -38,16 +39,17 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
 //        icons[2]= redIcon;
 //        icons[3]= greenIcon
         
-        for(int i=0; i<PlayerHandler.availableColors.length; i++)
-        {
-            model.addElement(PlayerHandler.availableColors[i]);//edw
-        }
+//        for(int i=0; i<PlayerHandler.availableColors.length; i++)
+//        {
+//            model.addElement(PlayerHandler.availableColors[i]);//edw
+//        }
         model.addElement(notConnectedIcon);
 //        for (Icon icon : icons) {
 //            model.addElement(icon);
 //        }
         
         initComponents();
+       
         model.setSelectedItem(model.getElementAt(model.getSize()-1));
         jComboBox1.setEnabled(false);
         
@@ -65,9 +67,10 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
        this.jComboBox1.setEnabled(enabled);
     }
     
-    public void setChoosed(int index)
+    public void setChoosed(PlayerColor col)
     {
-         model.setSelectedItem(model.getElementAt(index));
+         //model.setSelectedItem(model.getElementAt(index));
+         model.setSelectedItem(col);
     }
     
     
@@ -105,21 +108,6 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseClicked(evt);
-            }
-        });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jComboBox1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox1PropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -143,43 +131,25 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-//        if(((PlayerColor)this.jComboBox1.getSelectedItem())==null)
-//        {
-//            debug.Debug.println("nullllllll");
-//        }
-        debug.Debug.println("Heloo jim");
-        if(jComboBox1.getSelectedItem()!=null&&this.isEnabled())
-        {
-             debug.Debug.println("boxevent");
-            if(((PlayerColor)this.jComboBox1.getSelectedItem()).getPlayerID()!=Client.id)
-            {
-                debug.Debug.println("allazw se"+ ((PlayerColor)this.jComboBox1.getSelectedItem()).getColorID());
-               // Client.player.setColor((PlayerColor)jComboBox1.getSelectedItem());
-                //Client.informPlayerColorChange();
-            }
-//            else
-//                debug.Debug.println("Selected"+ ((PlayerColor)this.jComboBox1.getSelectedItem()).getColorID());
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-        // TODO add your handling code here:
-        debug.Debug.println("boxclicked#######");
-    }//GEN-LAST:event_jComboBox1MouseClicked
-
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
         
         //evt.getStateChange()
-        if(evt.getStateChange()==java.awt.event.ItemEvent.SELECTED)
-            debug.Debug.println("_-_-!boxitemstateChanged!-_-");
+        if(evt.getStateChange()==java.awt.event.ItemEvent.SELECTED
+                && Client.player != null
+                && LobbyWindow.playerPanels != null
+                && LobbyWindow.playerPanels[Client.player.getId()] != null
+                && LobbyWindow.playerPanels[Client.player.getId()].equals(this)
+                && ((PlayerColor)evt.getItem()).getColorID()!=Client.player.getColor().getColorID())
+        {
+            debug.Debug.println("_-_-!boxitemstateChanged!-_---------ALLAKSE--------");
+//            PlayerColor pc =(PlayerColor)evt.getItem();
+//             debug.Debug.println("item"+ pc.getColorID());
+//             debug.Debug.println("Clienr"+ Client.player.getColor().getColorID());
+            
+        }
+           
     }//GEN-LAST:event_jComboBox1ItemStateChanged
-
-    private void jComboBox1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox1PropertyChange
-        // TODO add your handling code here:
-        debug.Debug.println("boxpropertychanged!!!!!!!!!!!!!");
-    }//GEN-LAST:event_jComboBox1PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

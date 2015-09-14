@@ -45,11 +45,11 @@ public class Client implements Runnable {
                                     answer=dis.readUTF();
                                     while(!answer.equals("END_OLD_PLAYERS"))
                                     {
-                                        debug.Debug.println("hello");
+                                        //debug.Debug.println("hello");
                                         String playerName=answer;
                                         playerID = dis.readInt();
                                         playerColorID = dis.readInt();
-                                        debug.Debug.println("hello4");
+                                        //debug.Debug.println("hello4");
                                         Client.playerHandler.addPlayer(new Player(playerName,playerID,PlayerHandler.availableColors[playerColorID]));
                                         answer=dis.readUTF();
                                     }
@@ -82,6 +82,7 @@ public class Client implements Runnable {
                         Player p =new Player(playerName,playerID,PlayerHandler.availableColors[playerColorID]);
                         Client.playerHandler.addPlayer(p);
                         if(LobbyWindow.enabled)
+                            //LobbyWindow.loadPlayer(p);
                             LobbyWindow.loadPlayersNames();
                     }
                     

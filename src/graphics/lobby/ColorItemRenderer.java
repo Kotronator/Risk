@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -35,8 +36,18 @@ public class ColorItemRenderer extends JPanel implements ListCellRenderer {
         labelItem.setOpaque(true);
         labelItem.setHorizontalAlignment(JLabel.CENTER);
          
+//        labelItem.addMouseListener(new java.awt.event.MouseAdapter() {
+//
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                debug.Debug.println("clikara thn lista !!!!++++++++++=====");
+//            }
+//            
+//        });
         add(labelItem, constraints);
         setBackground(Color.LIGHT_GRAY);
+        
+        
     }
     
     @Override
@@ -46,11 +57,11 @@ public class ColorItemRenderer extends JPanel implements ListCellRenderer {
         //labelItem.setIcon(((JLabel)value).getIcon());
         labelItem.setIcon(((PlayerColor)value).getIcon());
         labelItem.setText("");
-        if (isSelected) {
-            setEnabled(false);
-        } else {
-            setEnabled(false);
-        }
+//        if (isSelected) {
+//            setEnabled(false);
+//        } else {
+//            setEnabled(false);
+//        }
         return this;
     }
     
