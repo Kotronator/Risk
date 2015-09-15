@@ -12,6 +12,8 @@ import graphics.PlayerColor;
 import java.beans.PropertyChangeListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.plaf.basic.BasicTextUI;
+import javax.swing.text.Highlighter;
 
 /**
  *
@@ -21,6 +23,8 @@ public class LobbyWindow extends javax.swing.JFrame {
 
 
     public static boolean enabled=false;
+
+    
 
 
     /**
@@ -40,6 +44,7 @@ public class LobbyWindow extends javax.swing.JFrame {
         enabled=true;
         //loadPlayer(Client.player);
         loadPlayersNames();
+        Client.sendMessageExpMe(Client.player.getName()+" joined the room");
         
     }
 
@@ -95,6 +100,12 @@ public class LobbyWindow extends javax.swing.JFrame {
         }
                 
     }
+    
+    
+    public static void displayMessage(String msg) {
+        jTextArea1.append(msg+"\n");
+    }
+    
 //     public static void loadPlayer(Player player)
 //    {
 //        
@@ -151,9 +162,8 @@ public class LobbyWindow extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -257,12 +267,16 @@ public class LobbyWindow extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(1);
-        jTextArea2.setAutoscrolls(false);
-        jScrollPane2.setViewportView(jTextArea2);
-
         jButton1.setText("Send");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -274,7 +288,7 @@ public class LobbyWindow extends javax.swing.JFrame {
                 .addComponent(jSeparator1))
             .addComponent(jScrollPane1)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1))
         );
@@ -288,12 +302,10 @@ public class LobbyWindow extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -357,6 +369,25 @@ public class LobbyWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()==10&&!jTextField1.getText().trim().equals(""))
+        {
+            String message =jTextField1.getText();
+            jTextField1.setText("");
+            //jTextArea2.setRows(0);
+            Client.sendMessage(Client.player.getName()+": "+message);
+          
+            //debug.Debug.println("("+message+")");
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        if(evt.getKeyCode()==10)
+        {
+            jTextField1.setText("");
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -405,10 +436,9 @@ public class LobbyWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private static javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel1;
     private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel2;
     private static graphics.lobby.LobbyPlayerPanel lobbyPlayerPanel3;

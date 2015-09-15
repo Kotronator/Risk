@@ -98,7 +98,7 @@ public class ClientHandler implements Runnable {
                                     }
                                     outstream.flush();
                                 }
-                                else if(str.startsWith("INFORM_ABOUT_PL_COL_CHA"))
+                                else if(str.equals("INFORM_ABOUT_PL_COL_CHA"))
                                 {
                                     int playerID = br.readInt();
                                     int newColorID = br.readInt();
@@ -109,14 +109,32 @@ public class ClientHandler implements Runnable {
                                     //outstream.writeUTF("OK");
                                     //outstream.flush();
                                 }
+                                else if(str.equals("MESSAGE_RECIEVE"))
+                                {   
+                                    String msg =br.readUTF();
+                                    Server.sendMessageToClients(msg);
+                                }
+                                else if(str.startsWith("MESSAGE_RECIEVE_SENT_OTHERS"))
+                                {   
+                                    String msg =br.readUTF();
+                                    Server.sendMessageToClientsButNotThis(msg,this);
+                                }
                                 
                             
 			}
-		} catch (IOException e) {
+		} 
+                catch (java.net.SocketException e)
+                {
+                    Server.informAboutDisconection(this);
+                    debug.Debug.println(e.getMessage());
+                }
+                catch (IOException e) {
 			// TODO Auto-generated catch block
                         //remove player
+                  
 			e.printStackTrace();
 		}
+                
 		
 		
 		

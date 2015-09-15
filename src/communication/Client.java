@@ -21,6 +21,8 @@ public class Client implements Runnable {
 	private static DataOutputStream dos;
         public static int id;
         public static Player player;
+
+    
 	
 	public Client()
 	{
@@ -98,14 +100,24 @@ public class Client implements Runnable {
                         LobbyWindow.loadPlayersNames();
                        
                     }
+                    else if(str.startsWith("GET_MESSAGE"))
+                    {
+                        String msg = dis.readUTF();
+                        if(LobbyWindow.enabled)
+                        LobbyWindow.displayMessage(msg);
+                    }
                     
                 }
                 
+            }    
+            catch (java.net.SocketException e)
+                {
+                    //Server.informAboutDisconection(this);
+                   // debug.Debug.println(e.getMessage());
+                }   
                 
                 
-                
-                
-            } catch (IOException ex) {
+             catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
            
@@ -131,5 +143,26 @@ public class Client implements Runnable {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        public static void sendMessage(String message)
+        {
+            try {
+                dos.writeUTF("MESSAGE_RECIEVE");
+                dos.writeUTF(message);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    public static void sendMessageExpMe(String message) {
+        try {
+                dos.writeUTF("MESSAGE_RECIEVE_SENT_OTHERS");
+                dos.writeUTF(message);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 
 }

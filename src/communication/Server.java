@@ -22,6 +22,12 @@ public class Server implements Runnable {
         static ArrayList<ClientHandler> clientHaldlers;
 
     
+
+    
+
+    
+
+    
 	
 	public Server()
 	{
@@ -91,7 +97,7 @@ public class Server implements Runnable {
         }
         
         static void informClientsAboutAvailableColor(int playerID, int newColorID, int oldColorID, ClientHandler cl) {
-       try {
+            try {
                 for (ClientHandler clhnd :clientHaldlers) {
                     if(clhnd!=cl)
                     {
@@ -107,6 +113,42 @@ public class Server implements Runnable {
              } catch (IOException ex) {
                         Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                     }
+    }
+        
+    static void informAboutDisconection(ClientHandler aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    static void sendMessageToClients(String msg) {
+        try {
+                for (ClientHandler clhnd :clientHaldlers) {
+                    {
+                        clhnd.outstream.writeUTF("GET_MESSAGE");
+                        clhnd.outstream.writeUTF(msg);
+                        clhnd.outstream.flush();
+                    }
+                }
+            } 
+            catch (IOException ex) 
+            {
+                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
+    static void sendMessageToClientsButNotThis(String msg, ClientHandler cl) {
+        try {
+                for (ClientHandler clhnd :clientHaldlers) {
+                    if(clhnd!=cl){
+                        clhnd.outstream.writeUTF("GET_MESSAGE");
+                        clhnd.outstream.writeUTF(msg);
+                        clhnd.outstream.flush();
+                    }
+                }
+            } 
+            catch (IOException ex) 
+            {
+                        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
 }
