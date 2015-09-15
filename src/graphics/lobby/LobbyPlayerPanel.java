@@ -26,6 +26,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
     PlayerColor notConnectedIcon = new PlayerColor(-1, Color.WHITE, notConnectedIcona);
     Icon[] icons = new Icon[4];
     protected  DefaultComboBoxModel model;
+    boolean actionlistenerEnabled=true;
     
     //http://www.codejava.net/java-se/swing/create-custom-gui-for-jcombobox
     /**
@@ -57,9 +58,19 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
        
     }
     
+    
     public void setName(String name)
     {
         NameLabel.setText(name);
+    }
+    public void enableListener()
+    {
+      actionlistenerEnabled=true;
+    }
+    
+     public void disableListener()
+    {
+      actionlistenerEnabled=false;
     }
     
     public void enableChoosing(boolean enabled)
@@ -135,14 +146,22 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         //evt.getStateChange()
-        if(evt.getStateChange()==java.awt.event.ItemEvent.SELECTED
+        if  (   actionlistenerEnabled
+                &&evt.getStateChange()==java.awt.event.ItemEvent.SELECTED
                 && Client.player != null
                 && LobbyWindow.playerPanels != null
                 && LobbyWindow.playerPanels[Client.player.getId()] != null
-                && LobbyWindow.playerPanels[Client.player.getId()].equals(this)
-                && ((PlayerColor)evt.getItem()).getColorID()!=Client.player.getColor().getColorID())
+                && LobbyWindow.playerPanels[Client.player.getId()]==(this)
+                && ((PlayerColor)evt.getItem()).getColorID()!=Client.player.getColor().getColorID()
+            )
         {
-            debug.Debug.println("_-_-!boxitemstateChanged!-_---------ALLAKSE--------");
+            
+            debug.Debug.println("_-_-!boxitemstateChanged!-_---------ALLAKSE--------"+System.currentTimeMillis());
+            debug.Debug.println("apo "+   Client.player.getColor().getColorID());
+            debug.Debug.println("se "+   ((PlayerColor)evt.getItem()).getColorID());
+            debug.Debug.println("toy "+  Client.player.getId());
+            debug.Debug.println("end");
+            debug.Debug.println("klhsh setColor apo Plpanel ac listener");
             Client.player.setColor(((PlayerColor)evt.getItem()));
             Client.informAboutPlayerColorChange(((PlayerColor)evt.getItem()));
             

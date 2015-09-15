@@ -8,6 +8,8 @@ package graphics.lobby;
 import communication.Client;
 import game.Player;
 import game.PlayerHandler;
+import graphics.PlayerColor;
+import java.beans.PropertyChangeListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -44,14 +46,16 @@ public class LobbyWindow extends javax.swing.JFrame {
     public static void loadPlayersNames()
     {
         //enabled=true;
+        
         for(Player p:Client.playerHandler.playerlist)
         {
-      
+               
                 int id=p.getId();
+                playerPanels[id].disableListener();
                 p.getName();
-                playerPanels[id].equals(null);
+                //playerPanels[id].equals(null);
                 playerPanels[id].setName(p.getName());
-                
+                 //playerPanels[id].enableChoosing(true);
                 if(Client.id==id)
                 {
                     playerPanels[id].enableChoosing(true);
@@ -60,14 +64,33 @@ public class LobbyWindow extends javax.swing.JFrame {
                 {
                     debug.Debug.println("isa");
                 }
-                playerPanels[Client.id].model.removeAllElements();
+                playerPanels[/*Client.*/id].model.removeAllElements();
+                int modelSize =playerPanels[/*Client.*/id].model.getSize();
             for (int i =0; i<PlayerHandler.availableColors.length;  i++) {
-                if(PlayerHandler.availableColors[i].getPlayerID()==Client.id||PlayerHandler.availableColors[i].getPlayerID()==-1)
+                if(PlayerHandler.availableColors[i].getPlayerID()==/*Client.*/id||PlayerHandler.availableColors[i].getPlayerID()==-1)
                 {
-                    playerPanels[Client.id].model.addElement(PlayerHandler.availableColors[i]);// edw
+                    playerPanels[/*Client.*/id].model.addElement(PlayerHandler.availableColors[i]);// edw
                 }
             }
+           //if(((PlayerColor)playerPanels[id].model.getSelectedItem()).getColorID()==Client.player.getColor().getColorID())
             playerPanels[id].setChoosed(p.getColor());
+           
+            for (int i = 0; i < modelSize; i++) {
+                playerPanels[/*Client.*/id].model.removeElementAt(i);
+            }
+//            PropertyChangeListener[] ar =playerPanels[id].getPropertyChangeListeners();
+//            for (int i = 0; i < ar.length; i++) {
+//                playerPanels[id].removePropertyChangeListener(ar[i]);
+//                
+//            }
+            
+            
+            
+//             for (int i = 0; i < ar.length; i++) {
+//                playerPanels[id].addPropertyChangeListener(ar[i]);
+//                
+//            }
+            playerPanels[id].enableListener();
             
         }
                 

@@ -92,7 +92,9 @@ public class Client implements Runnable {
                         int newColorID = dis.readInt();
                         int oldColorID = dis.readInt();
                         //Client.playerHandler.availableColors[oldColorID].setPlayerID(-1);
+                        debug.Debug.println("klhsh setColor apo Client me mhnima make c av");
                         Client.playerHandler.getPlayerWithID(playerID).setColor(Client.playerHandler.availableColors[newColorID]);
+                         debug.Debug.println("allaksa xroma ston paikth kai twra ananewnw");
                         LobbyWindow.loadPlayersNames();
                        
                     }

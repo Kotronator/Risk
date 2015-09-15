@@ -32,6 +32,7 @@ public class PlayerHandler {
                     if(availableColor.getPlayerID()==-1)
                     {
                         availableColor.setPlayerID(p.getId());
+                        debug.Debug.println("klhsh setColor apo PLHandler new pl");
                         p.setColor(availableColor);
                         break;
                     }

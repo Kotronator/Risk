@@ -103,6 +103,7 @@ public class ClientHandler implements Runnable {
                                     int playerID = br.readInt();
                                     int newColorID = br.readInt();
                                     int oldColorID = br.readInt();
+                                    debug.Debug.println("klhsh setColor apo ClientHandler me mhnima inform ab PL_COL_CHA");
                                     Server.playerHandler.playerlist.get(playerID).setColor(Server.playerHandler.availableColors[newColorID]);
                                     Server.informClientsAboutAvailableColor(playerID,newColorID,oldColorID ,this);
                                     //outstream.writeUTF("OK");

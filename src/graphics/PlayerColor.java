@@ -41,9 +41,9 @@ public class PlayerColor {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+//    public void setColor(Color color) {
+//        this.color = color;
+//    }
 
     public Icon getIcon() {
         return icon;

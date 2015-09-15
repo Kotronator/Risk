@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import Areas.Territory;
+import communication.Client;
 import graphics.PlayerColor;
 
 public class Player {
@@ -17,9 +18,10 @@ public class Player {
 
      public Player(String name, int id, PlayerColor color) {
         this.name = name;
-        this.color = color;
-        this.color.setPlayerID(id);
         this.id = id;
+        debug.Debug.println("klhsh setColor apo Player new constactor");
+        setColor(color);
+        
     }
     
     public Player(String nickname) {
@@ -39,10 +41,17 @@ public class Player {
     }
 
     public void setColor(PlayerColor color) {
+         debug.Debug.println("_-_-!colorChnanged!-_---------ALLAKSE----color----"+System.currentTimeMillis());
         if(this.color!=null)
         {
             this.color.setPlayerID(-1);
+            debug.Debug.println("apo "+   getColor().getColorID());
         }
+        
+           
+            debug.Debug.println("se "+   color.getColorID());
+            debug.Debug.println("toy "+ getId());
+            debug.Debug.println("end");
         this.color = color;
         this.color.setPlayerID(id);
     }
