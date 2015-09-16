@@ -103,8 +103,8 @@ public class MapController {
 						int[] x = new int[points.size()];
 						int[] y = new int[points.size()];
 						for (int j = 0; j < points.size(); j++) {
-							x[j]=(int)(points.get(j).x*MapCanvas.zoomFactor);
-							y[j]=(int)(points.get(j).y*MapCanvas.zoomFactor);
+							x[j]=(int)(points.get(j).x/**MapCanvas.zoomFactor*/);
+							y[j]=(int)(points.get(j).y/**MapCanvas.zoomFactor*/);
 						}
 						territory= new Territory(new Polygon(x, y, points.size()-1),"a");
 						continent.addTerritory(territory);
