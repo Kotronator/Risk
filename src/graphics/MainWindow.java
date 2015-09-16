@@ -16,8 +16,8 @@ public class MainWindow extends JFrame {
 	public MainWindow()
 	{
 		mapPanel= new JPanel();
-		canvas = new MapCanvas();
-		canvas.setSize(800,600);
+		canvas = new MapCanvas(800,600);
+		//canvas.setSize(800,600);
 		
 		mapPanel.add(canvas);
 		add(mapPanel);

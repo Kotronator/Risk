@@ -15,8 +15,14 @@ public class MapCanvas extends Canvas {
 	 * 
 	 */
 	private static final long serialVersionUID = -5214636220140070352L;
-	public static double zoomFactor=1.5;
+	public static double zoomFactor=1;
 	
+        public MapCanvas(int width, int height)
+        {
+            this.setSize(width, height);
+            zoomFactor=height/600.0;
+        }
+        
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
