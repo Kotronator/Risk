@@ -24,7 +24,7 @@ public class LobbyWindow extends javax.swing.JFrame {
 
 
     public static boolean enabled=false;
-
+    boolean gameSettingsEnabled=false;
     
 
 
@@ -32,7 +32,8 @@ public class LobbyWindow extends javax.swing.JFrame {
      * Creates new form LobbyWindow
      */
     public LobbyWindow() {
-
+        if(Client.player.getId()==0)
+            gameSettingsEnabled=true;
         initComponents();
         playerPanels= new LobbyPlayerPanel[6];
         playerPanels[0]=lobbyPlayerPanel1;
@@ -280,7 +281,6 @@ public class LobbyWindow extends javax.swing.JFrame {
         canvas1.setMaximumSize(new java.awt.Dimension(535, 401));
         canvas1.setMinimumSize(new java.awt.Dimension(535, 401));
         canvas1.setName(""); // NOI18N
-        canvas1.setPreferredSize(new java.awt.Dimension(535, 401));
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -332,12 +332,14 @@ public class LobbyWindow extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setEnabled(gameSettingsEnabled);
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jList1.setEnabled(gameSettingsEnabled);
         jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -419,31 +421,39 @@ public class LobbyWindow extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(204, 255, 255));
 
         jRadioButton1.setText("Workd Conquer");
+        jRadioButton1.setEnabled(gameSettingsEnabled);
 
         jRadioButton2.setText("Missions");
+        jRadioButton2.setEnabled(gameSettingsEnabled);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Style");
 
         jRadioButton3.setText("75%");
+        jRadioButton3.setEnabled(gameSettingsEnabled);
 
         jRadioButton4.setText("100%");
+        jRadioButton4.setEnabled(gameSettingsEnabled);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Transmitions");
 
         jCheckBox1.setText("Allow 2nd");
+        jCheckBox1.setEnabled(gameSettingsEnabled);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
 
+        jSpinner1.setEnabled(gameSettingsEnabled);
+
         jLabel7.setText("<html>  After Owning  Areas");
         jLabel7.setToolTipText("");
 
         jRadioButton6.setText("nearby");
+        jRadioButton6.setEnabled(gameSettingsEnabled);
         jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton6ActionPerformed(evt);
@@ -451,13 +461,16 @@ public class LobbyWindow extends javax.swing.JFrame {
         });
 
         jRadioButton7.setText("continius");
+        jRadioButton7.setEnabled(gameSettingsEnabled);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Unit Placement");
 
         jRadioButton8.setText("Random");
+        jRadioButton8.setEnabled(gameSettingsEnabled);
 
         jRadioButton9.setText("Pick");
+        jRadioButton9.setEnabled(gameSettingsEnabled);
         jRadioButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton9ActionPerformed(evt);
