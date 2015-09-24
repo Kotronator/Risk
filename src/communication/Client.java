@@ -35,7 +35,13 @@ public class Client implements Runnable {
 				socket = new Socket(address, port);
 				dis = new DataInputStream(socket.getInputStream());
 				dos = new DataOutputStream(socket.getOutputStream());
-				dos.writeUTF("ADDP "+username);
+                                StringBuilder myMessage;
+                                String message= MessageConstractor.createNewMessage(MessageConstractor.ADD_PLAYER);
+                                message=MessageConstractor.messageAddToken(message, username);
+                                debug.Debug.println(username);
+                                debug.Debug.println(message);
+				//dos.writeUTF("ADDP "+username);
+                                dos.writeUTF(message);
 				dos.flush();
 				String answer =dis.readUTF();
 				if(answer.startsWith("OK"))

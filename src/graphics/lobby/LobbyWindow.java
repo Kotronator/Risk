@@ -65,7 +65,7 @@ public class LobbyWindow extends javax.swing.JFrame {
                  //playerPanels[id].enableChoosing(true);
                 if(Client.id==id)
                 {
-                    playerPanels[id].enableChoosing(true);
+                    playerPanels[id].enableChoosingReady(true);
                 }
 //                if(playerPanels[id]==lobbyPlayerPanel1)
 //                {

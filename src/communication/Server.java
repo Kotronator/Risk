@@ -82,10 +82,15 @@ public class Server implements Runnable {
                 for (ClientHandler clhnd :clientHaldlers) {
                     if(clhnd!=cl)
                     {
-                        clhnd.outstream.writeUTF("ADD_PLAYER");
-                        clhnd.outstream.writeUTF(p.getName());
-                        clhnd.outstream.writeInt(p.getId());
-                        clhnd.outstream.writeInt(p.getColor().getColorID());
+//                        clhnd.outstream.writeUTF("ADD_PLAYER");
+//                        clhnd.outstream.writeUTF(p.getName());
+//                        clhnd.outstream.writeInt(p.getId());
+//                        clhnd.outstream.writeInt(p.getColor().getColorID());
+                        String message=MessageConstractor.ADD_PLAYER;
+                        MessageConstractor.messageAddToken(message,p.getName());
+                        MessageConstractor.messageAddToken(message,p.getId());
+                        MessageConstractor.messageAddToken(message,p.getColor().getColorID());
+                        clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
 
@@ -101,10 +106,15 @@ public class Server implements Runnable {
                 for (ClientHandler clhnd :clientHaldlers) {
                     if(clhnd!=cl)
                     {
-                        clhnd.outstream.writeUTF("MAKE_COLOR_AVAILABLE");
-                        clhnd.outstream.writeInt(playerID);
-                        clhnd.outstream.writeInt(newColorID);
-                        clhnd.outstream.writeInt(oldColorID);
+//                        clhnd.outstream.writeUTF("MAKE_COLOR_AVAILABLE");
+//                        clhnd.outstream.writeInt(playerID);
+//                        clhnd.outstream.writeInt(newColorID);
+//                        clhnd.outstream.writeInt(oldColorID);
+                        String message=MessageConstractor.MAKE_COLOR_AVAILABLE;
+                        MessageConstractor.messageAddToken(message,playerID);
+                        MessageConstractor.messageAddToken(message,newColorID);
+                        MessageConstractor.messageAddToken(message,oldColorID);
+                        clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
                 
@@ -123,8 +133,12 @@ public class Server implements Runnable {
         try {
                 for (ClientHandler clhnd :clientHaldlers) {
                     {
-                        clhnd.outstream.writeUTF("GET_MESSAGE");
-                        clhnd.outstream.writeUTF(msg);
+                        
+//                        clhnd.outstream.writeUTF("GET_MESSAGE");
+//                        clhnd.outstream.writeUTF(msg);
+                        String message=MessageConstractor.GET_MESSAGE;
+                        MessageConstractor.messageAddToken(message,msg);
+                        clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
                 }
@@ -139,8 +153,12 @@ public class Server implements Runnable {
         try {
                 for (ClientHandler clhnd :clientHaldlers) {
                     if(clhnd!=cl){
-                        clhnd.outstream.writeUTF("GET_MESSAGE");
-                        clhnd.outstream.writeUTF(msg);
+//                        clhnd.outstream.writeUTF("GET_MESSAGE");
+//                        clhnd.outstream.writeUTF(msg);
+//                        clhnd.outstream.flush();
+                        String message=MessageConstractor.GET_MESSAGE;
+                        MessageConstractor.messageAddToken(message,msg);
+                        clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
                 }

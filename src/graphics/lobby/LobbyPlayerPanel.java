@@ -52,7 +52,7 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         initComponents();
        
         model.setSelectedItem(model.getElementAt(model.getSize()-1));
-        jComboBox1.setEnabled(false);
+        //jComboBox1.setEnabled(false);
         
         
        
@@ -73,9 +73,10 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
       actionlistenerEnabled=false;
     }
     
-    public void enableChoosing(boolean enabled)
+    public void enableChoosingReady(boolean enabled)
     {
        this.jComboBox1.setEnabled(enabled);
+       this.jCheckBox1.setEnabled(enabled);
     }
     
     public void setChoosed(PlayerColor col)
@@ -114,12 +115,15 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
         jComboBox1.setModel(model
         );
         jComboBox1.setEditor(new ColorItemEditor());
+        jComboBox1.setEnabled(false);
         jComboBox1.setRenderer(new ColorItemRenderer());
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
+
+        jCheckBox1.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,10 +142,11 @@ public class LobbyPlayerPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents

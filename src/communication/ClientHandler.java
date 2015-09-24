@@ -58,11 +58,13 @@ public class ClientHandler implements Runnable {
 //				outstream.flush();
 //				Debug.println("message");
 //				Debug.println(str);
-                                if(str.startsWith("ADDP"))
+                                //if(str.startsWith("ADDP"))
+                                if(str.startsWith(MessageConstractor.ADD_PLAYER))
                                 {
+                                    Debug.println("Server recived:"+str);
                                     String[] tokens=str.split(" ");
                                     String playerName =tokens[1];
-                                    Debug.println("Server recived:ADDP "+playerName);
+                                    //Debug.println("Server recived:ADDP "+playerName);
                                     if(Server.playerHandler.containsPlayer(playerName)==null)
                                     {
                                         Player player =new Player(playerName);
