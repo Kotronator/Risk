@@ -29,7 +29,7 @@ public class Client implements Runnable {
 		
 	}
 	
-	static public int connect(String address, int port,String username) 
+	static public void connect(String address, int port,String username) 
 	{
 			try {
 				socket = new Socket(address, port);
@@ -38,52 +38,58 @@ public class Client implements Runnable {
                                 StringBuilder myMessage;
                                 String message= MessageConstractor.createNewMessage(MessageConstractor.ADD_PLAYER);
                                 message=MessageConstractor.messageAddToken(message, username);
-                                debug.Debug.println(username);
-                                debug.Debug.println(message);
+//                                debug.Debug.println(username);
+//                                debug.Debug.println(message);
 				//dos.writeUTF("ADDP "+username);
                                 dos.writeUTF(message);
 				dos.flush();
-				String answer =dis.readUTF();
-				if(answer.startsWith("OK"))
-                                {
-                                    int playerID = Client.id = dis.readInt();
-                                    int playerColorID = dis.readInt();
-                                    Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
-                                    Client.player=p;
-                                    Client.playerHandler.addPlayer(p);
-                                    answer=dis.readUTF();
-                                    while(!answer.equals("END_OLD_PLAYERS"))
-                                    {
-                                        //debug.Debug.println("hello");
-                                        String playerName=answer;
-                                        playerID = dis.readInt();
-                                        playerColorID = dis.readInt();
-                                        //debug.Debug.println("hello4");
-                                        Client.playerHandler.addPlayer(new Player(playerName,playerID,Client.playerHandler.availableColors[playerColorID]));
-                                        answer=dis.readUTF();
-                                    }
-                                    
-                                    return 1;
-                                }
-				else if(answer.startsWith("EXISTS"))
-					return 0;
+//				String answer =dis.readUTF();
+//				if(answer.startsWith("OK"))
+//                                {
+//                                    int playerID = Client.id = dis.readInt();
+//                                    int playerColorID = dis.readInt();
+//                                    Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
+//                                    Client.player=p;
+//                                    Client.playerHandler.addPlayer(p);
+//                                    answer=dis.readUTF();
+//                                    while(!answer.equals("END_OLD_PLAYERS"))
+//                                    {
+//                                        //debug.Debug.println("hello");
+//                                        String playerName=answer;
+//                                        playerID = dis.readInt();
+//                                        playerColorID = dis.readInt();
+//                                        //debug.Debug.println("hello4");
+//                                        Client.playerHandler.addPlayer(new Player(playerName,playerID,Client.playerHandler.availableColors[playerColorID]));
+//                                        answer=dis.readUTF();
+//                                    }
+//                                    
+//                                    return 1;
+//                                }
+//				else if(answer.startsWith("EXISTS"))
+//					return 0;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return -1;
+				//return -1;
 			}
-			return -1;
+			//return -1;
 			
 	}
 	
 	public void run() 
 	{
+            
+            
+            
             String str;
             try {
                
                 while((str= dis.readUTF())!=null)
                 {
                     if(str.startsWith("ADD_PLAYER"))
+                    {
+                    }
+                    else if(str.startsWith("ADD_PLAYER"))
                     {
                         String playerName=dis.readUTF();
                         int playerID = dis.readInt();
