@@ -32,7 +32,7 @@ public class LogInWindow extends javax.swing.JFrame {
     private boolean nameTextFieldIntialized=false;
     private boolean hostAddressTextFieldIntialized;
     //private boolean conected=false;
-    private ImageIcon red,green;
+    private static ImageIcon red,green;
     
     private final String greenStatusIconFileName= "icons/greenStatusIcon.gif",
             redStatusIconFileName= "icons/redStatusIcon.gif"
@@ -305,19 +305,20 @@ public class LogInWindow extends javax.swing.JFrame {
     	if(checkValidName()&& checkIP())
         {
     		Client client = new Client();
-    		int res =Client.connect(getIP(),getPort(),getNickname());
-        	if(res==1){
-        		Thread t = new Thread(client);
-        		t.start();
-				System.out.println("join");
-				setConected(1);
-				//PlayerHandler.addPlayer(new Player(getNickname()));
-			}
-        	else if(res==0)
-        	{
-        		setConected(0);
-        	}else
-        		setConected(-1);
+    		//int res =
+                client.connect(getIP(),getPort(),getNickname());
+//        	if(res==1){
+//        		Thread t = new Thread(client);
+//        		t.start();
+//				System.out.println("join");
+//				setConected(1);
+//				//PlayerHandler.addPlayer(new Player(getNickname()));
+//			}
+//        	else if(res==0)
+//        	{
+//        		setConected(0);
+//        	}else
+//        		setConected(-1);
         }				//PlayerHandler.addPlayer(new Player(getNickname()));
 
     }//GEN-LAST:event_connectButtonActionPerformed
@@ -395,9 +396,9 @@ public class LogInWindow extends javax.swing.JFrame {
 //   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton connectButton;
+    private static javax.swing.JButton connectButton;
     private javax.swing.JTextField hostAddressTextField;
-    private javax.swing.JButton hostButton;
+    private static javax.swing.JButton hostButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -411,12 +412,12 @@ public class LogInWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField portTextField;
-    private javax.swing.JButton startButton;
-    private javax.swing.JLabel statusLabel;
-    private javax.swing.JTextField statusTextField;
+    private static javax.swing.JButton startButton;
+    private static javax.swing.JLabel statusLabel;
+    private static javax.swing.JTextField statusTextField;
     // End of variables declaration//GEN-END:variables
 
-    public void setConected(int conected) {
+    public static void setConected(int conected) {
        
         if(conected==1)
         {

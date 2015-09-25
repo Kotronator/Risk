@@ -11,7 +11,10 @@ package communication;
  */
 public class MessageConstractor {
     
-    public static final String  ADD_PLAYER="ADD_PLAYER",
+    public static final String  ADD_NEW_PLAYER="ADD_NEW_PLAYER",
+                                OK_FOR_NEW_PLAYER="OK_F_N_P",
+                                NEW_PLAYER_EXISTS = "N_P_EXISTS",
+                                ADD_PLAYER="ADD_PLAYER",
                                 MAKE_COLOR_AVAILABLE="MAKE_COLOR_AVAILABLE",
                                 GET_MESSAGE="GET_MESSAGE";
     

@@ -59,9 +59,9 @@ public class ClientHandler implements Runnable {
 //				Debug.println("message");
 //				Debug.println(str);
                                 //if(str.startsWith("ADDP"))
-                                if(str.startsWith(MessageConstractor.ADD_PLAYER))
+                                if(str.startsWith(MessageConstractor.ADD_NEW_PLAYER))
                                 {
-                                    Debug.println("Server recived:"+str);
+                                    //Debug.println("Server recived:"+str);
                                     String[] tokens=str.split(" ");
                                     String playerName =tokens[1];
                                     //Debug.println("Server recived:ADDP "+playerName);
@@ -73,29 +73,35 @@ public class ClientHandler implements Runnable {
                                         //Server.playerHandler.printPlayers();
                                         int PlayerId=player.getId();
                                         int PlayerColorId=player.getColor().getColorID();
-                                        outstream.writeUTF("OK ");
-                                        outstream.writeInt(PlayerId);
-                                        outstream.writeInt(PlayerColorId);
-                                        Debug.println("Server sends:OK "+PlayerId+" "+PlayerColorId+" For Player:"+playerName);
-                                        if(numofPlayersBefore!=0){
-                                            //outstream.writeUTF("OLD_PLAYERS");
-                                            for (Player p : Server.playerHandler.playerlist) {
-                                                debug.Debug.println("hello2");
-                                                if(p.getId()!=PlayerId){
-                                                    debug.Debug.println("hello3");
-                                                    outstream.writeUTF(p.getName());
-                                                    outstream.writeInt(p.getId());
-                                                    outstream.writeInt(p.getColor().getColorID());
-                                                }
-                                            }
-                                            
-                                        }
-                                        outstream.writeUTF("END_OLD_PLAYERS");
+                                        String message = MessageConstractor.createNewMessage(MessageConstractor.OK_FOR_NEW_PLAYER);
+//                                        outstream.writeUTF("OK ");
+//                                        outstream.writeInt(PlayerId);
+//                                        outstream.writeInt(PlayerColorId);
+                                        message = MessageConstractor.messageAddToken(message, playerName);
+                                        message = MessageConstractor.messageAddToken(message, PlayerId);
+                                        message = MessageConstractor.messageAddToken(message, PlayerColorId);
+                                        outstream.writeUTF(message);
+                                        Debug.println(message);
+                                        //Debug.println("Server sends:OK "+PlayerId+" "+PlayerColorId+" For Player:"+playerName);
+//                                        if(numofPlayersBefore!=0){
+//                                            //outstream.writeUTF("OLD_PLAYERS");
+//                                            for (Player p : Server.playerHandler.playerlist) {
+//                                                debug.Debug.println("hello2");
+//                                                if(p.getId()!=PlayerId){
+//                                                    debug.Debug.println("hello3");
+//                                                    outstream.writeUTF(p.getName());
+//                                                    outstream.writeInt(p.getId());
+//                                                    outstream.writeInt(p.getColor().getColorID());
+//                                                }
+//                                            }
+//                                            
+//                                        }
+//                                        outstream.writeUTF("END_OLD_PLAYERS");
                                         Server.informOtherPlayersForNewPlayer(player, this);
                                         //TODO inform players for new player
                                     }else
                                     {
-                                         outstream.writeUTF("EXISTS");
+                                         outstream.writeUTF(MessageConstractor.NEW_PLAYER_EXISTS);
                                          Debug.println("Server sends:EXISTS"+" For Player:"+playerName);
                                     }
                                     outstream.flush();

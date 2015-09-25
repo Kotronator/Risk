@@ -3,6 +3,7 @@ package communication;
 import debug.Debug;
 import game.Player;
 import game.PlayerHandler;
+import graphics.LogInWindow;
 import graphics.PlayerColor;
 import graphics.lobby.LobbyWindow;
 import java.io.DataInputStream;
@@ -29,20 +30,25 @@ public class Client implements Runnable {
 		
 	}
 	
-	static public void connect(String address, int port,String username) 
+	public void connect(String address, int port,String username) 
 	{
 			try {
+                                
 				socket = new Socket(address, port);
 				dis = new DataInputStream(socket.getInputStream());
 				dos = new DataOutputStream(socket.getOutputStream());
+                                Thread t = new Thread(this);
+                                t.start();
                                 StringBuilder myMessage;
-                                String message= MessageConstractor.createNewMessage(MessageConstractor.ADD_PLAYER);
+                                String message= MessageConstractor.createNewMessage(MessageConstractor.ADD_NEW_PLAYER);
                                 message=MessageConstractor.messageAddToken(message, username);
 //                                debug.Debug.println(username);
 //                                debug.Debug.println(message);
 				//dos.writeUTF("ADDP "+username);
                                 dos.writeUTF(message);
 				dos.flush();
+                                
+//                              t.start();
 //				String answer =dis.readUTF();
 //				if(answer.startsWith("OK"))
 //                                {
@@ -86,8 +92,21 @@ public class Client implements Runnable {
                
                 while((str= dis.readUTF())!=null)
                 {
-                    if(str.startsWith("ADD_PLAYER"))
+                    if(str.startsWith(MessageConstractor.OK_FOR_NEW_PLAYER))
                     {
+                        String[] tokens=str.split(" ");
+                        String username =tokens[1];
+                        int playerID =Integer.parseInt(tokens[2]);
+                        int playerColorID =Integer.parseInt(tokens[3]);
+                        this.id=playerID;
+                        Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
+                        Client.player=p;
+                        Client.playerHandler.addPlayer(p);
+                        LogInWindow.setConected(1);
+                    }
+                    else if(str.startsWith(MessageConstractor.NEW_PLAYER_EXISTS))
+                    {
+                        LogInWindow.setConected(0);
                     }
                     else if(str.startsWith("ADD_PLAYER"))
                     {

@@ -110,10 +110,10 @@ public class Server implements Runnable {
 //                        clhnd.outstream.writeInt(playerID);
 //                        clhnd.outstream.writeInt(newColorID);
 //                        clhnd.outstream.writeInt(oldColorID);
-                        String message=MessageConstractor.MAKE_COLOR_AVAILABLE;
-                        MessageConstractor.messageAddToken(message,playerID);
-                        MessageConstractor.messageAddToken(message,newColorID);
-                        MessageConstractor.messageAddToken(message,oldColorID);
+                        String message=MessageConstractor.createNewMessage(MessageConstractor.MAKE_COLOR_AVAILABLE);
+                        message=MessageConstractor.messageAddToken(message,playerID);
+                        message=MessageConstractor.messageAddToken(message,newColorID);
+                        message=MessageConstractor.messageAddToken(message,oldColorID);
                         clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
@@ -136,8 +136,8 @@ public class Server implements Runnable {
                         
 //                        clhnd.outstream.writeUTF("GET_MESSAGE");
 //                        clhnd.outstream.writeUTF(msg);
-                        String message=MessageConstractor.GET_MESSAGE;
-                        MessageConstractor.messageAddToken(message,msg);
+                        String message=MessageConstractor.createNewMessage(MessageConstractor.GET_MESSAGE);
+                        message=MessageConstractor.messageAddToken(message,msg);
                         clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
@@ -156,8 +156,8 @@ public class Server implements Runnable {
 //                        clhnd.outstream.writeUTF("GET_MESSAGE");
 //                        clhnd.outstream.writeUTF(msg);
 //                        clhnd.outstream.flush();
-                        String message=MessageConstractor.GET_MESSAGE;
-                        MessageConstractor.messageAddToken(message,msg);
+                        String message=MessageConstractor.createNewMessage(MessageConstractor.GET_MESSAGE);
+                        message=MessageConstractor.messageAddToken(message,msg);
                         clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
