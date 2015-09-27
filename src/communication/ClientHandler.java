@@ -83,7 +83,7 @@ public class ClientHandler implements Runnable {
                                         outstream.writeUTF(message);
                                         Debug.println(message);
                                         //Debug.println("Server sends:OK "+PlayerId+" "+PlayerColorId+" For Player:"+playerName);
-//                                        if(numofPlayersBefore!=0){
+                                        if(numofPlayersBefore!=0){
 //                                            //outstream.writeUTF("OLD_PLAYERS");
 //                                            for (Player p : Server.playerHandler.playerlist) {
 //                                                debug.Debug.println("hello2");
@@ -95,7 +95,7 @@ public class ClientHandler implements Runnable {
 //                                                }
 //                                            }
 //                                            
-//                                        }
+                                        }
 //                                        outstream.writeUTF("END_OLD_PLAYERS");
                                         Server.informOtherPlayersForNewPlayer(player, this);
                                         //TODO inform players for new player
