@@ -95,13 +95,27 @@ public class Client implements Runnable {
                     if(str.startsWith(MessageConstractor.OK_FOR_NEW_PLAYER))
                     {
                         String[] tokens=str.split(" ");
-                        String username =tokens[1];
-                        int playerID =Integer.parseInt(tokens[2]);
-                        int playerColorID =Integer.parseInt(tokens[3]);
-                        this.id=playerID;
-                        Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
+                        int tokensNum = tokens.length;
+                        this.id=Integer.parseInt(tokens[2]);
+                        for (int i = 1; i < tokensNum; i+=3)
+                        {
+                            
+                            String username =tokens[i];
+                            int playerID =Integer.parseInt(tokens[i+1]);
+                            int playerColorID =Integer.parseInt(tokens[i+2]);
+                            Player p =new Player(username,playerID,Client.playerHandler.availableColors[playerColorID]);
+                            if( this.id==playerID)
+                            {
+                                Client.player=p;
+                            }
+                            
+                            Client.playerHandler.addPlayer(p);
+                        }
+                       
+                       
+                        
                         Client.player=p;
-                        Client.playerHandler.addPlayer(p);
+                       
                         LogInWindow.setConected(1);
                     }
                     else if(str.startsWith(MessageConstractor.NEW_PLAYER_EXISTS))

@@ -87,9 +87,9 @@ public class Server implements Runnable {
 //                        clhnd.outstream.writeInt(p.getId());
 //                        clhnd.outstream.writeInt(p.getColor().getColorID());
                         String message=MessageConstractor.ADD_PLAYER;
-                        MessageConstractor.messageAddToken(message,p.getName());
-                        MessageConstractor.messageAddToken(message,p.getId());
-                        MessageConstractor.messageAddToken(message,p.getColor().getColorID());
+                        message = MessageConstractor.messageAddToken(message,p.getName());
+                        message = MessageConstractor.messageAddToken(message,p.getId());
+                        message = MessageConstractor.messageAddToken(message,p.getColor().getColorID());
                         clhnd.outstream.writeUTF(message);
                         clhnd.outstream.flush();
                     }
