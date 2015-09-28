@@ -114,7 +114,7 @@ public class Client implements Runnable {
                        
                        
                         
-                        Client.player=p;
+                        //Client.player=p;
                        
                         LogInWindow.setConected(1);
                     }
@@ -124,9 +124,10 @@ public class Client implements Runnable {
                     }
                     else if(str.startsWith("ADD_PLAYER"))
                     {
-                        String playerName=dis.readUTF();
-                        int playerID = dis.readInt();
-                        int playerColorID = dis.readInt();
+                        String[] tokens=str.split(" ");
+                        String playerName=tokens[1];
+                        int playerID = Integer.parseInt(tokens[2]);
+                        int playerColorID = Integer.parseInt(tokens[3]);
                         Player p =new Player(playerName,playerID,Client.playerHandler.availableColors[playerColorID]);
                         Client.playerHandler.addPlayer(p);
                         if(LobbyWindow.enabled)
@@ -135,9 +136,13 @@ public class Client implements Runnable {
                     }
                     else if(str.startsWith("MAKE_COLOR_AVAILABLE"))
                     {
-                        int playerID = dis.readInt();
-                        int newColorID = dis.readInt();
-                        int oldColorID = dis.readInt();
+//                        int playerID = dis.readInt();
+//                        int newColorID = dis.readInt();
+//                        int oldColorID = dis.readInt();
+                        String[] tokens=str.split(" ");
+                        int playerID = Integer.parseInt(tokens[1]);
+                        int newColorID = Integer.parseInt(tokens[2]);
+                        int oldColorID = Integer.parseInt(tokens[3]);
                         //Client.playerHandler.availableColors[oldColorID].setPlayerID(-1);
                         debug.Debug.println("klhsh setColor apo Client me mhnima make c av");
                         Client.playerHandler.getPlayerWithID(playerID).setColor(Client.playerHandler.availableColors[newColorID]);
@@ -145,11 +150,12 @@ public class Client implements Runnable {
                         LobbyWindow.loadPlayersNames();
                        
                     }
-                    else if(str.startsWith("GET_MESSAGE"))
+                    else if(str.startsWith(MessageConstractor.GET_MESSAGE))
                     {
-                        String msg = dis.readUTF();
+                        String[] tokens=str.split(" ");
+                        //String msg = dis.readUTF();
                         if(LobbyWindow.enabled)
-                        LobbyWindow.displayMessage(msg);
+                        LobbyWindow.displayMessage(str.substring(MessageConstractor.GET_MESSAGE.length()));
                     }
                     
                 }

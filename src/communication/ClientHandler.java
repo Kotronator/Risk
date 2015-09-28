@@ -119,8 +119,10 @@ public class ClientHandler implements Runnable {
                                     }
                                     
                                 }
-                                else if(str.equals("INFORM_ABOUT_PL_COL_CHA"))
+                               
+                                else if(str.equals( MessageConstractor.INFORM_ABOUT_PL_COL_CHA))
                                 {
+                                    //String message = MessageConstractor.createNewMessage(MessageConstractor.OK_FOR_NEW_PLAYER);
                                     int playerID = br.readInt();
                                     int newColorID = br.readInt();
                                     int oldColorID = br.readInt();
@@ -132,11 +134,13 @@ public class ClientHandler implements Runnable {
                                 }
                                 else if(str.equals("MESSAGE_RECIEVE"))
                                 {   
+                                    //debug.Debug.println("edw ==++++++++++++++++++++++++++++++++++++++++++++++++++++");
                                     String msg =br.readUTF();
                                     Server.sendMessageToClients(msg);
                                 }
                                 else if(str.startsWith("MESSAGE_RECIEVE_SENT_OTHERS"))
                                 {   
+                                    //debug.Debug.println("edw ==++++++++++++++++++++++++++++++++++++++++++++++++++++");
                                     String msg =br.readUTF();
                                     Server.sendMessageToClientsButNotThis(msg,this);
                                 }
