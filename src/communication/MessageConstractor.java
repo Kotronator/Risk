@@ -17,7 +17,10 @@ public class MessageConstractor {
                                 ADD_PLAYER="ADD_PLAYER",
                                 MAKE_COLOR_AVAILABLE="MAKE_COLOR_AVAILABLE",
                                 INFORM_ABOUT_PL_COL_CHA = "INFORM_ABOUT_PL_COL_CHA",
-                                GET_MESSAGE="GET_MESSAGE";
+                                GET_MESSAGE="GET_MESSAGE",
+                                SEND_MESSAGE = "SEND_MESSAGE",
+                                SEND_MESSAGE_OTHERS = "SEND_MESSAGE_OTHERS"
+                                ;
     
     
     public static String messageAddToken(String message, String token)

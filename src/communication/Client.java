@@ -92,7 +92,8 @@ public class Client implements Runnable {
                
                 while((str= dis.readUTF())!=null)
                 {
-                    if(str.startsWith(MessageConstractor.OK_FOR_NEW_PLAYER))
+                    String firstToken = str.split(" ")[0];
+                    if(firstToken.equals(MessageConstractor.OK_FOR_NEW_PLAYER))
                     {
                         String[] tokens=str.split(" ");
                         int tokensNum = tokens.length;
@@ -118,11 +119,11 @@ public class Client implements Runnable {
                        
                         LogInWindow.setConected(1);
                     }
-                    else if(str.startsWith(MessageConstractor.NEW_PLAYER_EXISTS))
+                    else if(firstToken.equals(MessageConstractor.NEW_PLAYER_EXISTS))
                     {
                         LogInWindow.setConected(0);
                     }
-                    else if(str.startsWith("ADD_PLAYER"))
+                    else if(firstToken.equals("ADD_PLAYER"))
                     {
                         String[] tokens=str.split(" ");
                         String playerName=tokens[1];
@@ -134,7 +135,7 @@ public class Client implements Runnable {
                             //LobbyWindow.loadPlayer(p);
                             LobbyWindow.loadPlayersNames();
                     }
-                    else if(str.startsWith("MAKE_COLOR_AVAILABLE"))
+                    else if(firstToken.equals("MAKE_COLOR_AVAILABLE"))
                     {
 //                        int playerID = dis.readInt();
 //                        int newColorID = dis.readInt();
@@ -150,7 +151,7 @@ public class Client implements Runnable {
                         LobbyWindow.loadPlayersNames();
                        
                     }
-                    else if(str.startsWith(MessageConstractor.GET_MESSAGE))
+                    else if(firstToken.equals(MessageConstractor.GET_MESSAGE))
                     {
                         String[] tokens=str.split(" ");
                         //String msg = dis.readUTF();
@@ -177,11 +178,15 @@ public class Client implements Runnable {
         public static void informAboutPlayerColorChange(PlayerColor color)
         {
             try {
-                dos.writeUTF("INFORM_ABOUT_PL_COL_CHA");
-                dos.writeInt(Client.player.getId());
-                dos.writeInt(color.getColorID());
-                dos.writeInt(Client.player.getColor().getColorID());
-                debug.Debug.println("perimenw 1");
+                String message=MessageConstractor.createNewMessage(MessageConstractor.INFORM_ABOUT_PL_COL_CHA);
+                //dos.writeUTF("INFORM_ABOUT_PL_COL_CHA");
+                message=MessageConstractor.messageAddToken(message, Client.player.getId());
+                message=MessageConstractor.messageAddToken(message, color.getColorID());
+                message=MessageConstractor.messageAddToken(message, Client.player.getColor().getColorID());
+//                dos.writeInt(Client.player.getId());
+//                dos.writeInt(color.getColorID());
+//                dos.writeInt(Client.player.getColor().getColorID());
+//                debug.Debug.println("perimenw 1");
                 //String ans = dis.readUTF();
 //                debug.Debug.println(ans);
 //                if(ans.equals("OK"))
@@ -189,27 +194,34 @@ public class Client implements Runnable {
 //                    Client.player.setColor(color);
 //                }
                 //debug.Debug.println("perimenw 2");
-                
+                dos.writeUTF(message);
+                dos.flush();
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        public static void sendMessage(String message)
+        public static void sendMessage(String msg)
         {
             try {
-                dos.writeUTF("MESSAGE_RECIEVE");
+                String message=MessageConstractor.createNewMessage(MessageConstractor.SEND_MESSAGE);
+                message = MessageConstractor.messageAddToken(message, msg);
                 dos.writeUTF(message);
+                dos.flush();
+//                dos.writeUTF("MESSAGE_RECIEVE");
+//                dos.writeUTF(message);
                 
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-    public static void sendMessageExpMe(String message) {
+    public static void sendMessageExpMe(String msg) {
         try {
-                dos.writeUTF("MESSAGE_RECIEVE_SENT_OTHERS");
+               String message=MessageConstractor.createNewMessage(MessageConstractor.SEND_MESSAGE_OTHERS);
+                message = MessageConstractor.messageAddToken(message, msg);
                 dos.writeUTF(message);
+                dos.flush();
                 
             } catch (IOException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);

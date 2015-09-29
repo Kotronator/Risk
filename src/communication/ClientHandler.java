@@ -48,6 +48,7 @@ public class ClientHandler implements Runnable {
 			//int i =br.readInt();
 			while((str= br.readUTF())!=null)
 			{
+                            String firstToken = str.split(" ")[0];
 //				if(PlayerHandler.containsPlayer(str)==null)
 //                                {
 //                                    PlayerHandler.addPlayer(new Player(str));
@@ -59,7 +60,7 @@ public class ClientHandler implements Runnable {
 //				Debug.println("message");
 //				Debug.println(str);
                                 //if(str.startsWith("ADDP"))
-                                if(str.startsWith(MessageConstractor.ADD_NEW_PLAYER))
+                                if(firstToken.equals(MessageConstractor.ADD_NEW_PLAYER))
                                 {
                                     //Debug.println("Server recived:"+str);
                                     String[] tokens=str.split(" ");
@@ -120,29 +121,34 @@ public class ClientHandler implements Runnable {
                                     
                                 }
                                
-                                else if(str.equals( MessageConstractor.INFORM_ABOUT_PL_COL_CHA))
+                                else if(firstToken.equals( MessageConstractor.INFORM_ABOUT_PL_COL_CHA))
                                 {
                                     //String message = MessageConstractor.createNewMessage(MessageConstractor.OK_FOR_NEW_PLAYER);
-                                    int playerID = br.readInt();
-                                    int newColorID = br.readInt();
-                                    int oldColorID = br.readInt();
-                                    debug.Debug.println("klhsh setColor apo ClientHandler me mhnima inform ab PL_COL_CHA");
+                                    String[] tokens=str.split(" ");
+                                    int playerID =Integer.parseInt(tokens[1]);
+                                    int newColorID =Integer.parseInt(tokens[2]);
+                                    int oldColorID =Integer.parseInt(tokens[3]);
+                                    
+//                                    int newColorID = br.readInt();
+//                                    int oldColorID = br.readInt();
+                                    //debug.Debug.println("klhsh setColor apo ClientHandler me mhnima inform ab PL_COL_CHA");
                                     Server.playerHandler.playerlist.get(playerID).setColor(Server.playerHandler.availableColors[newColorID]);
                                     Server.informClientsAboutAvailableColor(playerID,newColorID,oldColorID ,this);
                                     //outstream.writeUTF("OK");
                                     //outstream.flush();
                                 }
-                                else if(str.equals("MESSAGE_RECIEVE"))
+                                else if(firstToken.equals(MessageConstractor.SEND_MESSAGE))
                                 {   
                                     //debug.Debug.println("edw ==++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                                    String msg =br.readUTF();
-                                    Server.sendMessageToClients(msg);
+                                    
+                                    
+                                    Server.sendMessageToClients(str.substring(MessageConstractor.SEND_MESSAGE.length()));
                                 }
-                                else if(str.startsWith("MESSAGE_RECIEVE_SENT_OTHERS"))
+                                else if(firstToken.equals(MessageConstractor.SEND_MESSAGE_OTHERS))
                                 {   
                                     //debug.Debug.println("edw ==++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                                    String msg =br.readUTF();
-                                    Server.sendMessageToClientsButNotThis(msg,this);
+                                    //String msg =br.readUTF();
+                                    Server.sendMessageToClientsButNotThis(str.substring(MessageConstractor.SEND_MESSAGE.length()),this);
                                 }
                                 
                             
