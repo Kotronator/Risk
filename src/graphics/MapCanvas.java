@@ -30,7 +30,6 @@ public class MapCanvas extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		
 		for (Continent continent : MapController.continents) {
 			
 			for (Territory territory : continent.territories) {

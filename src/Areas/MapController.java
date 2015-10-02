@@ -19,7 +19,7 @@ public class MapController {
 	File mapsFile;
 	File[] mapsFileList;
 	Map map;
-	ArrayList<String> modNames;
+	public static ArrayList<String> modNames;
 	
 	
 	public MapController()
@@ -43,10 +43,12 @@ public class MapController {
 		
 	}
 	
-	public boolean setMap(int index)
+	public static boolean setMap(String modName/*int index*/)
 	{
 		//
-		String modName = modNames.get(index);
+            continents= new ArrayList<Continent>();
+		/*String modName = modNames.get(index);*/
+                
 		//File modFolder =new File(modName);
 //		File mapFile =new File(FileLoader.loadFile(modName+"/"+modName+".map"));
 		System.out.println(modName);

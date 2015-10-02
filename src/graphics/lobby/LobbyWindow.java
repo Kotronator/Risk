@@ -34,6 +34,7 @@ public class LobbyWindow extends javax.swing.JFrame {
     public LobbyWindow() {
         if(Client.player.getId()==0)
             gameSettingsEnabled=true;
+        Areas.MapController.setMap(Areas.MapController.modNames.get(0));
         initComponents();
         playerPanels= new LobbyPlayerPanel[6];
         playerPanels[0]=lobbyPlayerPanel1;
@@ -165,7 +166,7 @@ public class LobbyWindow extends javax.swing.JFrame {
         lobbyPlayerPanel6 = new graphics.lobby.LobbyPlayerPanel();
         jPanel3 = new javax.swing.JPanel();
         panel1 = new java.awt.Panel();
-        canvas1 = canvas1=new MapCanvas(200,200);
+        canvas1 = canvas1= new MapCanvas(200,200);
         jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -176,9 +177,10 @@ public class LobbyWindow extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        MapjComboBox = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
+        reinfircementsJLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         wordConquerRadioButton = new javax.swing.JRadioButton();
         missionsRadioButton = new javax.swing.JRadioButton();
@@ -344,8 +346,13 @@ public class LobbyWindow extends javax.swing.JFrame {
 
         jLabel4.setText("Map");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setEnabled(gameSettingsEnabled);
+        MapjComboBox.setModel(new javax.swing.DefaultComboBoxModel(Areas.MapController.modNames.toArray()));
+        MapjComboBox.setEnabled(gameSettingsEnabled);
+        MapjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                MapjComboBoxItemStateChanged(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -354,6 +361,8 @@ public class LobbyWindow extends javax.swing.JFrame {
         });
         jList1.setEnabled(gameSettingsEnabled);
         jScrollPane2.setViewportView(jList1);
+
+        reinfircementsJLabel.setText("Reinforcements");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -364,9 +373,12 @@ public class LobbyWindow extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, 85, Short.MAX_VALUE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MapjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(reinfircementsJLabel)
+                        .addGap(0, 77, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -375,10 +387,12 @@ public class LobbyWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MapjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(reinfircementsJLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -480,6 +494,7 @@ public class LobbyWindow extends javax.swing.JFrame {
             }
         });
 
+        transmitions2ndContAreasLimitjSpinner.setModel(new javax.swing.SpinnerNumberModel(10, 10, 99, 1));
         transmitions2ndContAreasLimitjSpinner.setEnabled(false);
 
         jLabel7.setText("<html>  After Owning  Areas");
@@ -526,6 +541,7 @@ public class LobbyWindow extends javax.swing.JFrame {
             }
         });
 
+        transmitions1stContjSpinner.setModel(new javax.swing.SpinnerNumberModel(2, 2, 5, 1));
         transmitions1stContjSpinner.setToolTipText("hi all");
         transmitions1stContjSpinner.setEnabled(false);
 
@@ -561,6 +577,7 @@ public class LobbyWindow extends javax.swing.JFrame {
             }
         });
 
+        transmitions2ndContjSpinner.setModel(new javax.swing.SpinnerNumberModel(2, 2, 5, 1));
         transmitions2ndContjSpinner.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -810,6 +827,17 @@ public class LobbyWindow extends javax.swing.JFrame {
            transmitions2ndContjSpinner.setEnabled(true);
     }//GEN-LAST:event_transmition2ndContiniusStateChanged
 
+    private void MapjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_MapjComboBoxItemStateChanged
+        // TODO add your handling code here:
+        String mod = (String) evt.getItem();
+        debug.Debug.println(mod+"000000000000000000000000000000000");
+        Areas.MapController.setMap(mod);
+        //canvas1=new MapCanvas(200, 200);
+        canvas1.repaint();
+//        canvas1.revalidate();
+        
+    }//GEN-LAST:event_MapjComboBoxItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -846,9 +874,9 @@ public class LobbyWindow extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox MapjComboBox;
     private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -884,6 +912,7 @@ public class LobbyWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton missionsRadioButton;
     private java.awt.Panel panel1;
     private javax.swing.ButtonGroup percentageButtonGroup;
+    private javax.swing.JLabel reinfircementsJLabel;
     private javax.swing.ButtonGroup styleButtonGroup;
     private javax.swing.ButtonGroup transmition1stButtonGroup;
     private javax.swing.JRadioButton transmition1stContinius;

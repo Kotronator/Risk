@@ -8,10 +8,12 @@ public class Main {
 	static Player myPlayer;
 	
 	public static void main(String[] args) {
-		new LogInWindow();
+		
 		MapController mc = new MapController();
+                mc.setMap("Classic");
+                new LogInWindow();
 		//mc.wait();
-		mc.setMap(0);
+		//mc.setMap(0);
 		//new MainWindow();
 
 	}
